@@ -1,0 +1,10 @@
+server:
+  port: 8102
+
+spring:
+  application:
+    name: jwt-auth-service
+  security:
+    jwt:
+      # Base64-encoded 256-bit secret. Replace before using in production.
+      secret: cUpqRXlZQ0RiTHZ3czVIdmFObUZ4S1JtVGhZWFBmUlY0eEpiZWZ3aGtDZw==

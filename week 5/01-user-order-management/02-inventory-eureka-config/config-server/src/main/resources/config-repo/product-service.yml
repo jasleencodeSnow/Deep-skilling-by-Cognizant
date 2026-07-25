@@ -1,0 +1,7 @@
+# Centralized configuration for product-service, served by the config server
+product:
+  low-stock-threshold: 10
+
+logging:
+  level:
+    com.cognizant.product: DEBUG

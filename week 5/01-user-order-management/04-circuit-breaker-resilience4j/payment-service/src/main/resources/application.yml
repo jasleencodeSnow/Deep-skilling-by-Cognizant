@@ -1,0 +1,36 @@
+server:
+  port: 8095
+
+spring:
+  application:
+    name: payment-service
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,circuitbreakers,metrics
+  endpoint:
+    health:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      thirdPartyPaymentApi:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50          # % failures that trips the breaker
+        slowCallRateThreshold: 50
+        slowCallDurationThreshold: 2s     # a "slow" call
+        waitDurationInOpenState: 10s      # stay OPEN before trying again
+        permittedNumberOfCallsInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+  timelimiter:
+    instances:
+      thirdPartyPaymentApi:
+        timeoutDuration: 3s               # give up waiting for the slow API after 3s

@@ -1,0 +1,11 @@
+server:
+  port: 8101
+
+spring:
+  application:
+    name: resource-server
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://issuer.example.com

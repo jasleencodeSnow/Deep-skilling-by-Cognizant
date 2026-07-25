@@ -1,0 +1,7 @@
+# Centralized configuration for inventory-service, served by the config server
+inventory:
+  reorder-buffer: 5
+
+logging:
+  level:
+    com.cognizant.inventory: DEBUG

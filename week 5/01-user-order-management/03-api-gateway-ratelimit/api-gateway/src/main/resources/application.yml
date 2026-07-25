@@ -1,0 +1,47 @@
+server:
+  port: 9091
+
+spring:
+  application:
+    name: api-gateway
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  cloud:
+    gateway:
+      routes:
+        # ---- Customer Service: path rewrite + rate limiting ----
+        - id: customer-service-route
+          uri: http://localhost:8091
+          predicates:
+            - Path=/customers/**
+          filters:
+            # /customers/5  ->  /api/customers/5
+            - RewritePath=/customers/(?<segment>.*), /api/customers/${segment}
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5   # tokens/sec refilled
+                redis-rate-limiter.burstCapacity: 10   # bucket size
+                redis-rate-limiter.requestedTokens: 1
+                key-resolver: "#{@ipKeyResolver}"
+
+        # ---- Billing Service: path rewrite + rate limiting ----
+        - id: billing-service-route
+          uri: http://localhost:8092
+          predicates:
+            - Path=/billing/**
+          filters:
+            - RewritePath=/billing/(?<segment>.*), /api/billing/${segment}
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5
+                redis-rate-limiter.burstCapacity: 10
+                redis-rate-limiter.requestedTokens: 1
+                key-resolver: "#{@ipKeyResolver}"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: gateway,health
