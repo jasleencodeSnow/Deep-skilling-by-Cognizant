@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="department.xml" />
+
+    <!-- Register a custom editor so dateOfBirth strings (yyyy-MM-dd) below are converted to java.util.Date -->
+    <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+        <property name="customEditors">
+            <map>
+                <entry key="java.util.Date">
+                    <bean class="org.springframework.beans.propertyeditors.CustomDateEditor">
+                        <constructor-arg>
+                            <bean class="java.text.SimpleDateFormat">
+                                <constructor-arg value="yyyy-MM-dd" />
+                            </bean>
+                        </constructor-arg>
+                        <constructor-arg value="true" />
+                    </bean>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <!-- Skills - reused across multiple employees -->
+    <bean id="skillJava" class="com.cognizant.springlearn.model.Skill">
+        <property name="id" value="1" />
+        <property name="name" value="Java" />
+    </bean>
+
+    <bean id="skillSpring" class="com.cognizant.springlearn.model.Skill">
+        <property name="id" value="2" />
+        <property name="name" value="Spring Boot" />
+    </bean>
+
+    <bean id="skillAngular" class="com.cognizant.springlearn.model.Skill">
+        <property name="id" value="3" />
+        <property name="name" value="Angular" />
+    </bean>
+
+    <bean id="skillSql" class="com.cognizant.springlearn.model.Skill">
+        <property name="id" value="4" />
+        <property name="name" value="SQL" />
+    </bean>
+
+    <!-- Employees -->
+    <bean id="emp1" class="com.cognizant.springlearn.model.Employee">
+        <property name="id" value="1" />
+        <property name="name" value="John Smith" />
+        <property name="salary" value="55000" />
+        <property name="permanent" value="true" />
+        <property name="dateOfBirth" value="1990-05-14" />
+        <property name="department" ref="dept1" />
+        <property name="skills">
+            <list>
+                <ref bean="skillJava" />
+                <ref bean="skillSpring" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="emp2" class="com.cognizant.springlearn.model.Employee">
+        <property name="id" value="2" />
+        <property name="name" value="Emily Davis" />
+        <property name="salary" value="62000" />
+        <property name="permanent" value="true" />
+        <property name="dateOfBirth" value="1988-11-02" />
+        <property name="department" ref="dept1" />
+        <property name="skills">
+            <list>
+                <ref bean="skillAngular" />
+                <ref bean="skillJava" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="emp3" class="com.cognizant.springlearn.model.Employee">
+        <property name="id" value="3" />
+        <property name="name" value="Michael Brown" />
+        <property name="salary" value="48000" />
+        <property name="permanent" value="false" />
+        <property name="dateOfBirth" value="1995-03-21" />
+        <property name="department" ref="dept2" />
+        <property name="skills">
+            <list>
+                <ref bean="skillSql" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="emp4" class="com.cognizant.springlearn.model.Employee">
+        <property name="id" value="4" />
+        <property name="name" value="Sarah Wilson" />
+        <property name="salary" value="70000" />
+        <property name="permanent" value="true" />
+        <property name="dateOfBirth" value="1985-07-30" />
+        <property name="department" ref="dept3" />
+        <property name="skills">
+            <list>
+                <ref bean="skillSql" />
+                <ref bean="skillSpring" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="employeeList" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <ref bean="emp1" />
+                <ref bean="emp2" />
+                <ref bean="emp3" />
+                <ref bean="emp4" />
+            </list>
+        </constructor-arg>
+    </bean>
+
+</beans>
