@@ -1,0 +1,26 @@
+import React from "react";
+
+const flights = [
+  { id: 1, flightNo: "AI-202", from: "Mumbai", to: "Delhi", time: "08:00 AM" },
+  { id: 2, flightNo: "6E-556", from: "Bangalore", to: "Chennai", time: "11:30 AM" },
+  { id: 3, flightNo: "SG-118", from: "Delhi", to: "Kolkata", time: "03:45 PM" }
+];
+
+// Guest users can only browse flight details - no booking option is rendered
+function GuestPage() {
+  return (
+    <div>
+      <h2>Available Flights</h2>
+      <ul>
+        {flights.map((flight) => (
+          <li key={flight.id}>
+            {flight.flightNo}: {flight.from} &rarr; {flight.to} at {flight.time}
+          </li>
+        ))}
+      </ul>
+      <p><em>Login to book a ticket.</em></p>
+    </div>
+  );
+}
+
+export default GuestPage;

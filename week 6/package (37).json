@@ -1,0 +1,26 @@
+# 15 — Forms (`ticketraisingapp`)
+
+## What this demonstrates
+A controlled form (`ComplaintRegister.js`) that raises a "complaint ticket":
+- `handleChange(event)` — a single generic handler for every input, using
+  `event.target.name` as a computed property key:
+  `this.setState({ [event.target.name] : event.target.value })`.
+- `handleSubmit(event)` — builds a thank-you message with the submitter's
+  name and a generated transaction/reference id, shows it via `alert()`,
+  then calls `event.preventDefault()` so the browser doesn't reload the page.
+
+## How to run
+```bash
+npx create-react-app ticketraisingapp
+# replace the generated src/ files with the ones in this folder
+cd ticketraisingapp
+npm start
+```
+
+## Key solution points
+- Both `Name` and `Complaint` fields are **controlled components** — their
+  value always comes from `this.state`, and `onChange` keeps state in sync
+  as the user types.
+- The transaction id increments on every submission so each complaint gets
+  a unique reference number, matching the "Transaction ID is: 88" style
+  alert shown in the lab's expected output.

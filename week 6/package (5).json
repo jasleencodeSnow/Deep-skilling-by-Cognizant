@@ -1,0 +1,33 @@
+import React from "react";
+import { courses } from "./data";
+
+// Conditional rendering using a plain if/else statement that builds up an
+// "element variable" (coursedet) before the component returns it.
+function CourseDetails(props) {
+  const courseList = props.courses || courses;
+
+  let coursedet;
+  if (courseList.length > 0) {
+    coursedet = (
+      <div>
+        {courseList.map((course) => (
+          <div key={course.id}>
+            <h3>{course.name}</h3>
+            <h4>{course.date}</h4>
+          </div>
+        ))}
+      </div>
+    );
+  } else {
+    coursedet = <p>No courses available.</p>;
+  }
+
+  return (
+    <div className="mystyle1">
+      <h1>Course Details</h1>
+      {coursedet}
+    </div>
+  );
+}
+
+export default CourseDetails;

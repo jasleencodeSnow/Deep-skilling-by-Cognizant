@@ -1,0 +1,6 @@
+import React from "react";
+
+// Step 5: Define a new context with a default value of 'light'
+const ThemeContext = React.createContext("light");
+
+export default ThemeContext;

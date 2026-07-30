@@ -1,0 +1,28 @@
+# 12 — Conditional Rendering (`ticketbookingapp`)
+
+## What this demonstrates
+- Conditional rendering with `if`/`else` inside a function component (`Greeting`)
+- Element variables (`let button = ...`) chosen conditionally before `return`
+- Preventing a component from rendering by choosing between two different components
+  (`GuestPage` vs `UserPage`) based on state
+- `LoginButton` / `LogoutButton` presentational components driven by `props.onClick`
+
+## How to run
+```bash
+npx create-react-app ticketbookingapp
+# replace the generated src/ files with the ones in this folder
+cd ticketbookingapp
+npm start
+```
+
+## Key solution points
+1. **`Greeting(props)`** — matches the hint exactly: checks `props.isLoggedIn` and
+   returns either `<UserGreeting />` or `<GuestGreeting />`.
+2. **`LoginButton` / `LogoutButton`** — match the hint: both simply render a
+   `<button onClick={props.onClick}>` with their respective label.
+3. **`App`** — holds `isLoggedIn` in state. `handleLoginClick` sets it to `true`,
+   `handleLogoutClick` sets it to `false`. The `button` element variable swaps
+   between `LoginButton` and `LogoutButton`.
+4. **Guest vs. User page** — `{isLoggedIn ? <UserPage /> : <GuestPage />}` renders
+   flight details for everyone, but only `UserPage` exposes a **Book** button —
+   guests can browse only.

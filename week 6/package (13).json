@@ -1,0 +1,29 @@
+import React, { useState } from "react";
+
+const flights = [
+  { id: 1, flightNo: "AI-202", from: "Mumbai", to: "Delhi", time: "08:00 AM" },
+  { id: 2, flightNo: "6E-556", from: "Bangalore", to: "Chennai", time: "11:30 AM" },
+  { id: 3, flightNo: "SG-118", from: "Delhi", to: "Kolkata", time: "03:45 PM" }
+];
+
+// Logged-in users see the same flight list plus a Book button per flight
+function UserPage() {
+  const [bookedFlight, setBookedFlight] = useState(null);
+
+  return (
+    <div>
+      <h2>Book a Flight</h2>
+      <ul>
+        {flights.map((flight) => (
+          <li key={flight.id}>
+            {flight.flightNo}: {flight.from} &rarr; {flight.to} at {flight.time}{" "}
+            <button onClick={() => setBookedFlight(flight.flightNo)}>Book</button>
+          </li>
+        ))}
+      </ul>
+      {bookedFlight && <p>You booked flight {bookedFlight}!</p>}
+    </div>
+  );
+}
+
+export default UserPage;

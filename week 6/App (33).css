@@ -1,0 +1,18 @@
+.App {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.App h1 {
+  color: red;
+}
+
+form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+form input,
+form textarea {
+  margin-left: 8px;
+}
